@@ -5,7 +5,7 @@ use solana_sdk::commitment_config::CommitmentLevel;
 use super::*;
 use crate::utils::deserialize_str_to_number;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct EnhancedTransaction {
     pub account_data: Vec<AccountData>,
@@ -25,7 +25,7 @@ pub struct EnhancedTransaction {
     pub timestamp: u64,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct AccountData {
     pub account: String,
@@ -33,7 +33,7 @@ pub struct AccountData {
     pub token_balance_changes: Option<Vec<TokenBalanceChange>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TokenBalanceChange {
     pub user_account: String,
@@ -42,28 +42,28 @@ pub struct TokenBalanceChange {
     pub mint: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct RawTokenAmount {
     pub token_amount: String,
     pub decimals: Number,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct NativeTransfer {
     #[serde(rename = "userAccounts", flatten)]
     pub user_accounts: TransferUserAccounts,
     pub amount: Number,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TransferUserAccounts {
     pub from_user_account: Option<String>,
     pub to_user_account: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TokenTransfer {
     #[serde(flatten)]
@@ -75,14 +75,14 @@ pub struct TokenTransfer {
     pub mint: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TransactionError {
     #[serde(rename = "InstructionError")]
     pub instruction_error: Option<serde_json::Value>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Instruction {
     pub accounts: Vec<String>,
     pub data: String,
@@ -92,7 +92,7 @@ pub struct Instruction {
     pub inner_instructions: Vec<InnerInstruction>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct InnerInstruction {
     pub accounts: Vec<String>,
     pub data: String,
@@ -100,7 +100,7 @@ pub struct InnerInstruction {
     pub program_id: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Default)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct TransactionEvent {
     pub nft: Option<NftEvent>,
     pub swap: Option<SwapEvent>,
@@ -109,7 +109,7 @@ pub struct TransactionEvent {
     pub set_authority: Option<Vec<Authority>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NftEvent {
     pub seller: String,
@@ -125,7 +125,7 @@ pub struct NftEvent {
     pub nfts: Vec<Token>,
 }
 
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SwapEvent {
     pub native_input: Option<NativeBalanceChange>,
@@ -137,14 +137,14 @@ pub struct SwapEvent {
     pub inner_swaps: Vec<TokenSwap>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Token {
     pub mint: String,
     #[serde(rename = "tokenStandard")]
     pub token_standard: TokenStandard,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TokenSwap {
     pub native_input: Option<NativeTransfer>,
@@ -156,7 +156,7 @@ pub struct TokenSwap {
     pub program_info: ProgramInfo,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NativeBalanceChange {
     pub account: String,
@@ -164,7 +164,7 @@ pub struct NativeBalanceChange {
     pub amount: Number,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ProgramInfo {
     pub source: Source,
     pub account: String,
@@ -174,7 +174,7 @@ pub struct ProgramInfo {
     pub instruction_name: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Authority {
     pub account: String,
@@ -186,7 +186,7 @@ pub struct Authority {
     pub inner_instruction_index: Option<i32>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct CompressedNftEvent {
     #[serde(rename = "type")]
@@ -206,12 +206,12 @@ pub struct CompressedNftEvent {
     pub update_args: Option<Value>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ParseTransactionsRequest {
     pub transactions: Vec<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ParsedTransactionHistoryRequest {
     pub address: String,
     pub before: Option<String>,

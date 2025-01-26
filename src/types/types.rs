@@ -577,7 +577,7 @@ pub struct FileQuality {
     pub schema: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Metadata {
     pub attributes: Option<Vec<Attribute>>,
     pub description: Option<String>,
@@ -585,7 +585,7 @@ pub struct Metadata {
     pub symbol: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Attribute {
     pub value: Value,
     pub trait_type: String,
